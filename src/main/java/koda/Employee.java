@@ -1,38 +1,28 @@
 package koda;
 
+import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Employee {
-    private String account;
+    private String employeeId;
     private String owner;
-    private double balance;
+    private Long balance;
 
-    public String getAccount() {
-        return account;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public double getBalance() {
-        return balance;
-    }
-
-    public Employee(String account, String owner, double balance) {
-        if (account == null || account.isBlank()) {
-            throw new IllegalArgumentException("Account number wajib diisi");
-        }
+    public static Employee employee(String employeeId, String owner, Long balance) {
         if (owner == null || owner.isBlank()) {
             throw new IllegalArgumentException("Owner wajib diisi");
         }
-        if (balance < 0) {
+        if (!Double.isFinite(balance) || balance < 0) {
             throw new IllegalArgumentException("Balance wajib diisi");
         }
-        this.account = account;
-        this.owner = owner;
-        this.balance = balance;
+        return new Employee(employeeId, owner, balance);
     }
 
-    public void deposit(double amount) {
+    public void deposit(Long amount) {
         if (amount <= 0 || !Double.isFinite(amount)) {
             throw new IllegalArgumentException("Deposit harus positif");
         }
