@@ -13,19 +13,22 @@ public class Employee {
     private Long balance;
 
     public static Employee employee(String employeeId, String owner, Long balance) {
+        if (employeeId == null || employeeId.isBlank()) {
+            throw new IllegalArgumentException("Id wajib diisi");
+        }
         if (owner == null || owner.isBlank()) {
             throw new IllegalArgumentException("Owner wajib diisi");
         }
-        if (!Double.isFinite(balance) || balance < 0) {
+        if (balance == null || balance < 0) {
             throw new IllegalArgumentException("Balance wajib diisi");
         }
         return new Employee(employeeId, owner, balance);
     }
 
-    public void deposit(Long amount) {
-        if (amount <= 0 || !Double.isFinite(amount)) {
-            throw new IllegalArgumentException("Deposit harus positif");
-        }
-        balance += amount;
-    }
+    // public void deposit(Long amount) {
+    // if (amount <= 0 || !Double.isFinite(amount)) {
+    // throw new IllegalArgumentException("Deposit harus positif");
+    // }
+    // balance += amount;
+    // }
 }
